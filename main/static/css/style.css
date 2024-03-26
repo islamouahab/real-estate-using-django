@@ -18,7 +18,7 @@ body{
     margin-left: 15%;
     display: flex;
     width: 60vw;
-    height: 20vw;
+    height: 25vw;
     gap: 2vw;
    
 
@@ -60,7 +60,9 @@ body{
     color: black;
     margin: 1vw;
     font-weight: bold;
+    font-size: 1vw;
 }
+
 .username {
     width: 10vw;
     background-color: #D9D9D9;
@@ -78,7 +80,7 @@ width: 25vw;
   margin-left: 35%;
   display: flex;
   width: 28vw;
-  height: 20vw;
+  height: 280px;
   border-radius: 12px;
 }
 .login-button , .create-acc {

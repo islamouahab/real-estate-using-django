@@ -10,6 +10,7 @@ body{
     background-color:#ffffff;
     display: flex;
     flex-direction: row;
+    border-bottom: black;
     box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.1);
     z-index: 999;
 }
@@ -76,7 +77,7 @@ width: 25vw;
     height: 1vw;
 }
 .signup{
-  margin-top: 10%;
+
   margin-left: 35%;
   display: flex;
   width: 28vw;
@@ -122,7 +123,7 @@ width: 25vw;
   .transition {
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     transition-duration: 500ms;
-    background-color: rgba(16, 185, 129, 0.6);
+    background-color: rgb(59, 224, 169);
     border-radius: 9999px;
     width: 0;
     height: 0;
@@ -139,5 +140,18 @@ width: 25vw;
   
   .login-button:active , .create-acc:active {
     transform: scale(0.97);
+  }
+  .signup-container{
+    display:grid;
+    grid-template-columns: 1;
+  }
+  .back-arrow{
+    margin-top: 10%;
+    margin-left: 35%;
+    color: rgb(255, 255, 255);
+  }
+  .back-arrow:hover{
+    text-decoration: none;
+    color: white;
   }
   

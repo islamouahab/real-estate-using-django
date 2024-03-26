@@ -18,6 +18,8 @@
     <div class="navbar">
         <img src="{% static 'public/external/logo.png' %}" >
     </div>
+    <div class="signup-container">
+      <a href="{% url 'login' %}" class="back-arrow">&#8592; Go Back</a>
         <div class="right-div signup">
            <form action="{% url 'create_user' %}" method="post">
             {% csrf_token %}

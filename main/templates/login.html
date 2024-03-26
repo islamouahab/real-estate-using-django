@@ -55,16 +55,8 @@
             
            </form>
         <div class="guest-register">
-           <a href="{% url 'home' %}"><button class= "guest-button">
-                <span class="transition"></span>
-                <span class="gradient"></span>
-                <span class="label">Continue as guest</span>
-              </button></a>
-           <a href="{% url 'create_user' %}"><button class="create-acc">
-            <span class="transition"></span>
-                <span class="gradient"></span>
-                <span class="label">Register</span>
-           </button></a>
+           <p>dont you have an account?</p>
+            <p><a href="{% url 'create_user' %}">Register</a> Or  <a href="{% url 'home' %}">Continue as guest</a></p> 
         </div>
         </div>
     </div>

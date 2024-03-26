@@ -167,18 +167,16 @@ width: 25vw;
     transform: translate(-50%, -50%);
   }
   
- .login-button:hover .transition , .create-acc:hover .transition ,.guest-button:hover .transition{
+ .login-button:hover .transition{
     width: 25em;
     height: 14em;
   }
-  
-  .login-button:active , .create-acc:active , .guest-button:active {
+
+  .login-button:active {
     transform: scale(0.97);
   }
   .guest-register{
-    display: flex;
-    justify-content: space-between;
-    width: 27vw;
+    margin-left: 4vw;
   }
   .signup-container{
     display:grid;

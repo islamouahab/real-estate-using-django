@@ -7,7 +7,7 @@ body{
 }
 .navbar{
     width: 100vw;
-    background-color:#ffffff;
+    background-color:#dd1d1d;
     display: flex;
     flex-direction: row;
     border-bottom: black;

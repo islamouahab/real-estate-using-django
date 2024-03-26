@@ -6,10 +6,17 @@ from django.contrib.auth import login , authenticate , logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 # Create your views here.
+def home(request):
+   if not request.user.is_authenticated:
+      return render(request , 'home.html',{'auth':False})
+   else:
+      return render(request , 'home.html',{'auth':True})
+
 def login_view(request):
-    if not request.user.is_authenticated:
+   if not request.user.is_authenticated:
      return render(request , 'login.html')
-    return render(request , 'home.html')
+   else:
+      return HttpResponseRedirect(reverse("home"))
 def login_handle(request):
     wrong_creds = "your username or password is incorrect"
     if request.method == 'POST':

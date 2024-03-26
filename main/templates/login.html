@@ -14,9 +14,9 @@
     
 </head>
 <body>
-    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/login-out.css'%}">
     <div class="navbar">
-        <img src="{% static 'public/external/logo.png' %}" >
+        <img src="{% static 'public/external/brand.png' %}" >
     </div>
     <div class="main-container" >
         <div class="left-div">
@@ -51,13 +51,21 @@
                 <span class="gradient"></span>
                 <span class="label">Login</span>
               </button>
+              
             
            </form>
+        <div class="guest-register">
+           <a href="{% url 'home' %}"><button class= "guest-button">
+                <span class="transition"></span>
+                <span class="gradient"></span>
+                <span class="label">Continue as guest</span>
+              </button></a>
            <a href="{% url 'create_user' %}"><button class="create-acc">
             <span class="transition"></span>
                 <span class="gradient"></span>
                 <span class="label">Register</span>
            </button></a>
+        </div>
         </div>
     </div>
 </body>

@@ -1,10 +1,9 @@
 .navbar{
     width: 100vw;
-    height: 6vw;
+    height: 4vw;
     background-color:#ffffff;
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
     border-bottom: 2px solid rgba(0, 0, 0, 0.105);
     box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.1);
     z-index: 999;
@@ -15,15 +14,15 @@
 .action-bar{
     width: 90vw;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    flex-direction: row;
 }
 .search {
     display: flex;
     align-items: center;
     justify-content: space-between;
     text-align: center;
-    margin-left: 10vw;
+    margin-left: 3vw;
   }
   
   .search__input {
@@ -73,25 +72,39 @@
     width: 1em;
     fill: #b4b4b4;
   }
+  .account-container{
+    max-width: 15vw;
+    display: flex;
+    justify-content: flex-start;
+  }
   .login-out {
-    padding: 17px 40px;
+    padding: 1vw 1vw;
+    width: 7vw;
     border-radius: 50px;
     cursor: pointer;
     border: 0;
-    background-color: white;
+    background-color: #ffffff;
     box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-size: .9vw;
+    font-size: .6vw;
     transition: all 0.5s ease;
   }
   
 .login-out:hover {
-    letter-spacing: 3px;
     background-color: hsl(261deg 80% 48%);
     color: hsl(0, 0%, 100%);
     box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
   }
+  .account{
+    border-radius: 50%;
+    border: 0.5px solid black;
+    margin-right: 4vw;
+    padding: 0;
+   background: none;
+  }
+  .account img{
+    display: block;
+  }
+
   .cards{
     display: flex;
     justify-content: flex-start;
@@ -136,7 +149,7 @@
    /*Text*/
    .text-title {
     font-weight: 900;
-    font-size: 1rem;
+    font-size: 1.2vw;
     line-height: 1.5;
    }
    
@@ -144,5 +157,34 @@
     font-size: .8rem;
     padding-bottom: .1vw;
    }
+  .view-item {
+    background-color: #FFFFFF;
+    border: 1px solid rgb(209,213,219);
+    border-radius: .5rem;
+    color: #111827;
+    font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1vw;
+    font-weight: 600;
+    transition: ease-in 0.5s;
+    line-height: 1.25rem;
+    padding: .75rem 1rem;
+    text-align: center;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+  }
+  
+  .view-item:hover {
+    background-color: #1aa115;
+    color: white;
+  }
+  
+
 
    

@@ -5,6 +5,7 @@ from django.shortcuts import render , redirect
 from django.contrib.auth import login , authenticate , logout 
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 # Create your views here.
 def home(request):
    if not request.user.is_authenticated:
@@ -28,6 +29,12 @@ def login_handle(request):
         else:
            return render(request , 'login.html', {'error_message':wrong_creds})
     return HttpResponseRedirect(reverse("login"))
+def profile(request , user_id):
+   if request.user.id==user_id :
+      return render(request , 'profile.html')
+   else:
+      raise PermissionDenied()
+
 def create_user(request):
    if request.method=='POST':
       username = request.POST['username']

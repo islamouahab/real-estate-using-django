@@ -36,17 +36,20 @@
   </div>
   </div> 
   <div class="info-container">
+    <form action="{{user.id}}/update_profile" method="post">
     <div class="profile-pic">
        <button class="account"  type ="button" id="profile-pic"> <img src="{% static 'public/external/no-user.png'%}" alt=""></button>
     </div>
     <div class="user-des">
         <ul>
-            <h1>{{user.username}}</h1>
-            <h5 style="font-weight:400">0554050429</h5>
+            <input type="text" name="username" value="{{user.username}}" class="username" >
+            <input type="text" name="phone_num" value="0554050429" class="phone_num">
             <h3></h3>
-        </ul>
+        </ul><button type="submit" class="apply">Apply</button>
     </div>
+      </form>
     </div>
+    <br>
 <hr class="dropdown-divider">
 <div class="input-container">
   <div class="close-container">
@@ -94,10 +97,8 @@
             ></path>
           </g>
         </g>
-      </g></svg
-  ></span>
-  <p>drag and drop your file here or click to select a file!</p></label
->
+      </g></svg></span>
+  <p>drag and drop your file here or click to select a file!</p></label>
 <input class="input" name="text" id="file" type="file" />
     </div>
 </body>

@@ -1,4 +1,4 @@
-.info-container{
+ form{
     display: flex;
     width: 100vw;
     height: 10vw; 
@@ -13,10 +13,88 @@
     height: 10vw;
     width: 10vw;
 }
-.user-des{
-    display: grid;
-    grid-template-columns: 1;
-    gap: 1vw;
+.user-des {
+  --width-of-input: 20vw;
+  --border-height: 1px;
+  --border-before-color: rgba(221, 221, 221, 0.39);
+  --border-after-color: #5891ff;
+  --input-hovered-color: #4985e01f;
+  display: grid;
+  grid-template-columns: 1;
+  gap: 0vw;
+  width: var(--width-of-input);
+ }
+ /* styling of Input */
+ .username,.phone_num {
+  color: #000000;
+  background-color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+  border-bottom: var(--border-height) solid var(--border-before-color);
+ }
+ .username{
+  font-size: 2vw;
+ }
+ .phone_num{
+  font-size: 1.2vw;
+ }
+ /* styling of animated border */
+ .input-border {
+  position: absolute;
+  background: var(--border-after-color);
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  transition: 0.3s;
+ }
+ /* Hover on Input */
+ input:hover {
+  background: var(--input-hovered-color);
+ }
+ 
+ input:focus {
+  outline: none;
+ }
+ /* here is code of animated border */
+ input:focus ~ .input-border {
+  width: 100%;
+ }
+ /* === if you want to do animated border on typing === */
+ /* remove input:focus code and uncomment below code */
+ /* input:valid ~ .input-border{
+   width: 100%;
+ } */
+ .apply {
+  padding: .5vw .5vw;
+  font-size: 1.5vw;
+  height: 3vw;
+  width: 10vw;
+  margin-left: 2.5vw;
+  font-weight: 500;
+  color: #00000041;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  pointer-events: none;
+  outline: none;
+}
+
+.apply:hover {
+  background-color: #23c483;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.apply:active {
+  transform: translateY(-1px);
 }
 .input-container{
     position: absolute;

@@ -38,7 +38,7 @@
       <div class="dropdown">
         <button class="account" type ="button" data-bs-toggle="dropdown" aria-expanded="false"> <img src="{% static 'public/external/no-user.png'%}" alt=""></button>
         <ul class="dropdown-menu dropdown-menu-dark">
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="profile/{{user.id}}">Profile</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
         </ul>
@@ -50,6 +50,8 @@
     
   </div>
   </div>
+  <p style="font-weight:500;font-size:2vw;margin-left:3vw;margin-top:2vw">Recent posts</p>
+  <hr class="dropdown-divider">
     <div class="cards">
       <div class="card">
         <div class="card-img"><img src="{% static 'public/external/background.png' %}" alt=""></div>

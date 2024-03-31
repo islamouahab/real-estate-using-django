@@ -4,6 +4,7 @@
     background-color:#ffffff;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     border-bottom: 2px solid rgba(0, 0, 0, 0.105);
     box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.1);
     z-index: 999;
@@ -96,9 +97,9 @@
   }
   .account{
     border-radius: 50%;
-    border: 0.5px solid black;
+    border: 0.5px solid rgba(0, 0, 0, 0.479);
     margin-right: 4vw;
-    padding: 0;
+   padding: 0;
    background: none;
   }
   .account img{
@@ -108,9 +109,10 @@
   .cards{
     display: flex;
     justify-content: flex-start;
-    margin-left: 5vw;
-    margin-top: 5vw;
+    margin-left: 3vw;
+    margin-top: 3vw;
     height:  50vw;
+
   }
   .card {
     width: 25vw;

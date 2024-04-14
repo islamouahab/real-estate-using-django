@@ -3,13 +3,13 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render , redirect
 from django.contrib.auth import login , authenticate , logout 
-from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
+from .models import custom_user
 # Create your views here.
 def home(request):
    if not request.user.is_authenticated:
-      return render(request , 'home.html',{'auth':False})
+      return render(request , 'home.html',{'auth':False ,'delete_alert':False})
    else:
       return render(request , 'home.html',{'auth':True})
 
@@ -31,7 +31,7 @@ def login_handle(request):
     return HttpResponseRedirect(reverse("login"))
 def profile(request , user_id):
    if request.user.id==user_id :
-      return render(request , 'profile.html')
+      return render(request , 'profile.html',{'alert':False})
    else:
       raise PermissionDenied()
 
@@ -40,13 +40,32 @@ def create_user(request):
       username = request.POST['username']
       email = request.POST['email']
       password = request.POST['password']
+      phone_num = request.POST['phone_num']
       if not username or not email or not password:
          messages.error(request , 'All fields must be filled')
          return redirect('create_user')
-      user = User.objects.create_user(username=username , email=email , password=password)
+      user = custom_user.objects.create_user(username=username , email=email , password=password , phone_num=phone_num)
       return HttpResponseRedirect(reverse('login'))
    else:
       return render(request , 'signup.html')
+def delete_user(request,user_id):
+    user = custom_user.objects.get(pk=user_id)
+    logout(request)
+    user.delete()
+    return render(request , 'home.html',{'auth':False , 'delete_alert':True})
+def update_profile(request , user_id):
+   if request.method == 'POST':
+      username = request.POST['username']
+      phone_num = request.POST['phone_num']
+      user = custom_user.objects.get(pk=user_id)
+      user.username = username
+      user.phone_num = phone_num
+      if request.FILES:
+        profile_pic = request.FILES['profile_pic']
+        user.profile_pic = profile_pic
+      user.save()
+      alert = True
+      return render(request , 'profile.html',{'alert':True})
 def logout_handle(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))

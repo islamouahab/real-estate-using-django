@@ -100,10 +100,9 @@
     position: absolute;
     flex-direction: column;
     display: none;
-    width: 30vw;
+    width: 100vw;
     height: 22vw;
     margin-left: 30vw;
-   margin-top: -10vw;
     border-radius: 3%;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 0 2em #00000073;
@@ -205,5 +204,70 @@
       opacity: 1;
     }
   }
-  
+  .delete-div{
+    margin-left: 85vw;
+    margin-top: -2.5vw;
+  }
+  .delete-div a{
+    text-decoration: none;
+  }
+  .delete {
+    width: 210px;
+    height: 3vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: red;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    background: #e62222;
+   }
+   
+   .delete, .delete span {
+    transition: 200ms;
+   }
+   
+   .delete .text {
+    transform: translateX(2vw);
+    color: white;
+    font-weight: bold;
+   }
+   
+   .delete .icon {
+    position: absolute;
+    transform: translateX(110px);
+    height: 2vw;
+    width: 8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+   
+   .delete svg {
+    width: 1vw;
+    fill: #eee;
+   }
+   
+   .delete:hover {
+    background: #ff3636;
+   }
+   
+   .delete:hover .text {
+    color: transparent;
+   }
+   
+   .delete:hover .icon {
+    width: 12vw;
+    border-left: none;
+    transform: translateX(0);
+   }
+   
+   .delete:focus {
+    outline: none;
+   }
+   
+   .delete:active .icon svg {
+    transform: scale(0.8);
+   }
   

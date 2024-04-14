@@ -16,7 +16,13 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
 <body>
-
+  {% if delete_alert %}
+  <script>
+      window.onload = function() {
+          alert("your Profile deleted sucessfully");
+      };
+  </script>
+  {% endif %}
   <div class="navbar">
     <img src="{% static 'public/external/brand.png' %}" >
     <div class="action-bar">
@@ -36,7 +42,7 @@
       {% else %}
        <div class="">
       <div class="dropdown">
-        <button class="account" type ="button" data-bs-toggle="dropdown" aria-expanded="false"> <img src="{% static 'public/external/no-user.png'%}" alt=""></button>
+        <button class="account" type ="button" data-bs-toggle="dropdown" aria-expanded="false"><img src={% if user.profile_pic %}{%if user.profile_pic.url %}'{{user.profile_pic.url}}'{%else%}"{% static 'public/external/no-user.png' %}" {%endif%}{%endif%} alt=""></button>
         <ul class="dropdown-menu dropdown-menu-dark">
           <li><a class="dropdown-item" href="profile/{{user.id}}">Profile</a></li>
           <li><hr class="dropdown-divider"></li>
@@ -64,5 +70,6 @@
         <button class="view-item">view</button>
       </div>
     </div>
+  </div>
     
 </body>

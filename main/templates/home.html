@@ -40,9 +40,16 @@
       {% if auth is False %}
        <a href="{% url 'login' %}"><button class="login-out">Login</button></a>
       {% else %}
-       <div class="">
+      
+        <button class="btn btn-success" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> 
+          Add +</button> 
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
+          <li><a class="dropdown-item" href="#">villa</a></li> 
+          <li><a class="dropdown-item" href="#">terrain</a></li> 
+          <li><a class="dropdown-item" href="#">appatement</a></li> 
+        </ul> 
       <div class="dropdown">
-        <button class="account" type ="button" data-bs-toggle="dropdown" aria-expanded="false"><img src={% if user.profile_pic %}{%if user.profile_pic.url %}'{{user.profile_pic.url}}'{%else%}"{% static 'public/external/no-user.png' %}" {%endif%}{%endif%} alt=""></button>
+        <button class="account" type ="button" data-bs-toggle="dropdown" aria-expanded="false"><img src={% if user.profile_pic %}{%if user.profile_pic.url %}{{user.profile_pic.url}}{%else%}{% static 'public/external/no-user.png' %}{%endif%}{%endif%} alt=""></button>
         <ul class="dropdown-menu dropdown-menu-dark">
           <li><a class="dropdown-item" href="profile/{{user.id}}">Profile</a></li>
           <li><hr class="dropdown-divider"></li>
@@ -51,7 +58,6 @@
       </div>
       {% endif %}
       
-    </div>
     </div>
     
   </div>

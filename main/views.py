@@ -5,13 +5,14 @@ from django.shortcuts import render , redirect
 from django.contrib.auth import login , authenticate , logout 
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from .models import custom_user
+from .models import custom_user,post,media_files
 # Create your views here.
 def home(request):
+   posts = post.objects.prefetch_related('media_files_set').all()
    if not request.user.is_authenticated:
-      return render(request , 'home.html',{'auth':False ,'delete_alert':False})
+      return render(request , 'home.html',{'auth':False ,'delete_alert':False , 'posts':posts})
    else:
-      return render(request , 'home.html',{'auth':True})
+      return render(request , 'home.html',{'auth':True , 'posts':posts})
 
 def login_view(request):
    if not request.user.is_authenticated:

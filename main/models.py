@@ -14,6 +14,7 @@ class post(models.Model):
     floor_num = models.IntegerField()
     description = models.CharField(max_length=1024)
     price = models.FloatField()
+    location = models.CharField(max_length=256)
     def __str__(self):
         return self.title
     

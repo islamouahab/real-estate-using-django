@@ -49,6 +49,26 @@ def create_user(request):
       return HttpResponseRedirect(reverse('login'))
    else:
       return render(request , 'signup.html')
+def add_post(request):
+    if request.method=='POST':
+       title = request.POST['title']
+       space = request.POST['area']
+       floor = request.POST['floor']
+       price = request.POST['price']
+       description = request.POST['description']
+       location = request.POST['location']
+       Post = post(user_id=request.user , title=title , space=space, floor_num=floor, price=price , description=description , location=location)
+       Post.save()
+       if 'media' in request.FILES:
+        for file in request.FILES.getlist('media'):
+          media = media_files(post_id=Post , path=file)
+          media.save()
+       return HttpResponseRedirect(reverse('home'))
+    return render(request , 'add post.html')
+    
+def show_post(request,post_id):
+   Post = post.objects.prefetch_related('media_files_set').get(pk=post_id)
+   return render(request,'post.html',{'post':Post})
 def delete_user(request,user_id):
     user = custom_user.objects.get(pk=user_id)
     logout(request)
@@ -67,6 +87,10 @@ def update_profile(request , user_id):
       user.save()
       alert = True
       return render(request , 'profile.html',{'alert':True})
+def search(request):
+   search_key = request.POST['search']
+   Posts = post.objects.filter(title__icontains=search_key)
+   return render(request,'home.html',{'posts':Posts})
 def logout_handle(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))

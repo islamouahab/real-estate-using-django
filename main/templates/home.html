@@ -26,9 +26,11 @@
   <div class="navbar">
     <img src="{% static 'public/external/brand.png' %}" >
     <div class="action-bar">
+      <form action="{%url 'search'%}" method="post">
+        {%csrf_token%}
     <div class="search">
-      <input type="text" class="search__input" placeholder="Type your search">
-      <button class="search__button">
+      <input type="text" class="search__input" placeholder="Type your search" name="search">
+      <button class="search__button" type="submit">
           <svg class="search__icon" aria-hidden="true" viewBox="0 0 24 24">
               <g>
                   <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
@@ -36,18 +38,20 @@
           </svg>
       </button>
     </div>
+      </form>
     <div class="account-container">
       {% if auth is False %}
        <a href="{% url 'login' %}"><button class="login-out">Login</button></a>
       {% else %}
-      
-        <button class="btn btn-success" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> 
+      <div class="dropdown"> 
+        <button class="btn btn-success" style="margin-right: 2vw;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> 
           Add +</button> 
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-          <li><a class="dropdown-item" href="#">villa</a></li> 
-          <li><a class="dropdown-item" href="#">terrain</a></li> 
-          <li><a class="dropdown-item" href="#">appatement</a></li> 
+          <li><a class="dropdown-item" href="{%url 'add annonce' %}">villa</a></li> 
+          <li><a class="dropdown-item" href="{%url 'add annonce' %}">terrain</a></li> 
+          <li><a class="dropdown-item" href="{%url 'add annonce' %}">appatement</a></li> 
         </ul> 
+      </div>
       <div class="dropdown">
         <button class="account" type ="button" data-bs-toggle="dropdown" aria-expanded="false"><img src={% if user.profile_pic %}{%if user.profile_pic.url %}{{user.profile_pic.url}}{%else%}{% static 'public/external/no-user.png' %}{%endif%}{%endif%} alt=""></button>
         <ul class="dropdown-menu dropdown-menu-dark">
@@ -64,6 +68,7 @@
   </div>
   <p style="font-weight:500;font-size:2vw;margin-left:3vw;margin-top:2vw">Recent posts</p>
   <hr class="dropdown-divider">
+  {%if posts%}
     <div class="cards">
     {%for post in posts%}
       <div class="card">
@@ -75,11 +80,16 @@
         </div>
         <div class="card-footer">
         <span class="text-title">{{post.price}} DA</span>
-        <button class="view-item">view</button>
+        <a href="{% url 'show post' post.id%}"><button class="view-item">view</button></a>
       </div>
     </div>
     {%endfor%}
   </div>
+  {%else%}
+  <div style="display: flex;justify-content: center;">
+  <h2>No result</h2>
+</div>
+  {%endif%}
   
     
 </body>

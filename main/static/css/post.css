@@ -1,9 +1,12 @@
+a{
+    color: inherit;
+}
 .main-container{
     margin-left: 4vw;
     display: flex;
     margin-right: 3vw;
     margin-top: 4vw;
-    height: 40vw;
+    height: 36vw;
     width: 96%;
 }
 .post-medias{
@@ -34,6 +37,71 @@
     font-weight: 900;
 }
 .user-info{
-    height: 19vw;
+    border: 1px black;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    margin-bottom: 2vw;
+    margin-right: 2vw;
+    display: grid;
+    height: 17vw;
     padding: 2vw;
 }
+.user-media{
+    display: flex;
+    gap: 1vw;
+    font-weight: 600;
+    font-size: 3vw;
+}
+.user-media h3{
+    cursor: pointer;
+}
+.phone_num {
+    height: 4vw;
+    width: 20vw;
+    padding: .15px .3px;
+    border: 2px solid #242020c6;
+    background-color: #242020c6;
+    color: #ffffff;
+    font-size: 1.2vw;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: all 0.4s ease;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    font-weight: bold;
+  }
+  
+  .phone_num::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0) 70%
+    );
+    transform: scale(0);
+    transition: transform 0.5s ease;
+  }
+  
+  .phone_num:hover::after {
+    transform: scale(4);
+  }
+  
+  .phone_num:hover {
+    border-color: #666666;
+    background: #292929;
+  }
+.description{
+    padding: 2vw;
+    margin-left: 4vw;
+    width: 50%;
+}
+.description p{
+    font-weight: 200;
+}
+  

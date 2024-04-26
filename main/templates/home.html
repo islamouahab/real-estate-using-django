@@ -70,13 +70,13 @@
   <hr class="dropdown-divider">
   {%if posts%}
     <div class="cards">
-    {%for post in posts%}
+    {%for post,description in posts%}
       <div class="card">
         <div class="card-img"><img src="{{post.media_files_set.first.path.url}}" alt=""></div>
         <hr class="dropdown-divider">
         <div class="card-info">
           <p class="text-title">{{post.title}} </p>
-          <p class="text-body">{{post.description}}</p>
+          <p class="text-body">{{description}}</p>
         </div>
         <div class="card-footer">
         <span class="text-title">{{post.price}} DA</span>

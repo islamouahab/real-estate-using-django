@@ -9,10 +9,12 @@ from .models import custom_user,post,media_files
 # Create your views here.
 def home(request):
    posts = post.objects.prefetch_related('media_files_set').all()
+   max_length = 120
+   description  = [post.description[:max_length]+ '...' if len(post.description)>max_length else post.description for post in posts]
    if not request.user.is_authenticated:
-      return render(request , 'home.html',{'auth':False ,'delete_alert':False , 'posts':posts})
+      return render(request , 'home.html',{'auth':False ,'delete_alert':False , 'posts':zip(posts,description)})
    else:
-      return render(request , 'home.html',{'auth':True , 'posts':posts})
+      return render(request , 'home.html',{'auth':True , 'posts':zip(posts,description)})
 
 def login_view(request):
    if not request.user.is_authenticated:

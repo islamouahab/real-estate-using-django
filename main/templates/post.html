@@ -50,7 +50,7 @@
           <div class="dropdown">
             <button class="account" type ="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="{% if user.profile_pic %}{%if user.profile_pic.url %}{{user.profile_pic.url}}{%else%}{% static 'public/external/no-user.png' %}{%endif%}{%endif%}" alt=""></button>
             <ul class="dropdown-menu ">
-              <li><a class="dropdown-item" href="profile/{{user.id}}">Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'profile' user.id %}">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
             </ul>

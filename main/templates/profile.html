@@ -42,6 +42,7 @@
     </div>
   </div>
   </div> 
+  {% if owner %}
   <div class="info-container">
     <form action="{% url 'update_profile' user.id %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
@@ -98,7 +99,7 @@
       <p>drag and drop your file here or click to select a file!</p></label>
     <input class="input" name="profile_pic" id="file" type="file" />
         </div>
-    </body>
+    
     <div class="user-des">
         <ul>
             <input type="text" name="username" value="{{user.username}}" class="username" >
@@ -115,17 +116,55 @@
 <hr class="dropdown-divider">
 <p style="font-weight:500;font-size:2vw;margin-left:3vw;margin-top:2vw">My posts</p>
 <div class="cards">
+  {%for post,description in posts%}
   <div class="card">
-    <div class="card-img"><img src="{% static 'public/external/background.png' %}" alt=""></div>
+    <div class="card-img"><img src="{{post.media_files_set.first.path.url}}" alt=""></div>
+    <hr class="dropdown-divider">
     <div class="card-info">
-      <p class="text-title">Product title </p>
-      <p class="text-body">Product description and details</p>
+      <p class="text-title">{{post.title}} </p>
+      <p class="text-body">{{description}}</p>
     </div>
     <div class="card-footer">
-    <span class="text-title">$499.49</span>
-    <button class="view-item">view</button>
+    <span class="text-title">{{post.price}} DA</span>
+    <a href="{% url 'show post' post.id%}"><button class="view-item">view</button></a>
   </div>
 </div>
+{%endfor%}
 </div>
+{% else %}
+<div class="info-container">
+  <form>
+  <div class="profile-pic">
+     <button class="account"  type ="button" id="profile-pic"> <img src={% if User.profile_pic %}{%if User.profile_pic.url %}'{{User.profile_pic.url}}'{%else%}"{% static 'public/external/no-user.png' %}" {%endif%}{%endif%} alt=""></button>
+  </div>
+  <div class="user-des">
+      <ul>
+          <p class="username" >{{User.username}}</p>
+          <p  class="phone_num">{{User.phone_num}}</p>
+      </ul>
+  </div>
+    </form>
+</div>
+  <br>
+<hr class="dropdown-divider">
+<p style="font-weight:500;font-size:2vw;margin-left:3vw;margin-top:2vw">{{User.username}}'s posts</p>
+<div class="cards">
+  {%for post,description in posts%}
+  <div class="card">
+    <div class="card-img"><img src="{{post.media_files_set.first.path.url}}" alt=""></div>
+    <hr class="dropdown-divider">
+    <div class="card-info">
+      <p class="text-title">{{post.title}} </p>
+      <p class="text-body">{{description}}</p>
+    </div>
+    <div class="card-footer">
+    <span class="text-title">{{post.price}} DA</span>
+    <a href="{% url 'show post' post.id%}"><button class="view-item">view</button></a>
+  </div>
+</div>
+{%endfor%}
+</div>
+{% endif %}
+
   </body>
 </html>

@@ -33,10 +33,17 @@ def login_handle(request):
            return render(request , 'login.html', {'error_message':wrong_creds})
     return HttpResponseRedirect(reverse("login"))
 def profile(request , user_id):
-   if request.user.id==user_id :
-      return render(request , 'profile.html',{'alert':False})
-   else:
-      raise PermissionDenied()
+      if request.user.id != user_id:
+         User = custom_user.objects.get(pk=user_id)
+         owner = False
+      else:
+         User = None
+         owner = True
+      Posts = post.objects.prefetch_related('media_files_set').filter(user_id=user_id)
+      max_length = 120
+      description  = [post.description[:max_length]+ '...' if len(post.description)>max_length else post.description for post in Posts]
+      return render(request , 'profile.html',{'alert':False,'owner':owner,'User':User,'posts':zip(Posts,description)})
+  
 
 def create_user(request):
    if request.method=='POST':
@@ -88,11 +95,13 @@ def update_profile(request , user_id):
         user.profile_pic = profile_pic
       user.save()
       alert = True
-      return render(request , 'profile.html',{'alert':True})
+      return HttpResponseRedirect(reverse('profile', args=(request.user.id,)))
 def search(request):
    search_key = request.POST['search']
    Posts = post.objects.filter(title__icontains=search_key)
-   return render(request,'home.html',{'posts':Posts})
+   max_length = 120
+   description  = [post.description[:max_length]+ '...' if len(post.description)>max_length else post.description for post in Posts]
+   return render(request,'home.html',{'posts':zip(Posts,description)})
 def logout_handle(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))

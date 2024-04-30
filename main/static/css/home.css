@@ -154,6 +154,50 @@
     padding-top: .5vw;
     border-top: 1px solid #ddd;
    }
+   /* works only on a dark background with these paremeters*/
+
+.menu {
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  place-items: center;
+  background-color: transparent;
+  cursor: pointer;
+}
+button:focus{
+  outline: none;
+}
+.menu > svg {
+  border-radius: inherit;
+  padding: 0.5vw;
+  fill: #000000;
+ /* SVG color */
+  width: 2.5vw;
+ /* default width 32px */
+  height: 2.5vw;
+ /* default height 32px */
+}
+
+.menu > svg:active {
+  background-color: rgba(65, 65, 65, 0.5);
+  outline: none;
+}
+
+.menu > svg:not(:active) {
+  animation: fadeOut 0.9s;
+}
+
+@keyframes fadeOut {
+  0% {
+    outline: 1px solid rgba(90, 90, 90, 0.5);
+ /* If you use border it will take space inside and slightly move the SVG */
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
    
    /*Text*/
    .text-title {

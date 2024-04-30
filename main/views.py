@@ -33,6 +33,7 @@ def login_handle(request):
            return render(request , 'login.html', {'error_message':wrong_creds})
     return HttpResponseRedirect(reverse("login"))
 def profile(request , user_id):
+   if request.user.is_authenticated:
       if request.user.id != user_id:
          User = custom_user.objects.get(pk=user_id)
          owner = False
@@ -43,6 +44,8 @@ def profile(request , user_id):
       max_length = 120
       description  = [post.description[:max_length]+ '...' if len(post.description)>max_length else post.description for post in Posts]
       return render(request , 'profile.html',{'alert':False,'owner':owner,'User':User,'posts':zip(Posts,description)})
+   else:
+      return HttpResponseRedirect(reverse('login'))
   
 
 def create_user(request):
@@ -77,9 +80,40 @@ def add_post(request):
     
 def show_post(request,post_id):
    Post = post.objects.prefetch_related('media_files_set').get(pk=post_id)
-   return render(request,'post.html',{'post':Post})
+   return render(request,'post.html',{'post':Post,'auth':request.user.is_authenticated})
+def update_post(request,post_id):
+   Post = post.objects.prefetch_related('media_files_set').get(pk=post_id)
+   if request.user == Post.user_id:
+    if request.method=='POST':
+       Post.title = request.POST['title']
+       Post.space = request.POST['area']
+       Post.floor_num = request.POST['floor']
+       Post.price = request.POST['price']
+       Post.description = request.POST['description']
+       Post.location = request.POST['location']
+       Post.save()
+       if 'media' in request.FILES:
+        if request.FILES:
+         for file in Post.media_files_set.all():
+          file.delete()
+         for file in request.FILES.getlist('media'):
+          media = media_files(post_id=Post , path=file)
+          media.save()
+       return HttpResponseRedirect(reverse('home'))
+    return render(request,'post update.html',{'post':Post}) 
+   else:
+      raise PermissionDenied()
+def delete_post(request,post_id):
+    Post = post.objects.prefetch_related('media_files_set').get(pk=post_id)
+    for file in Post.media_files_set.all():
+       file.delete()
+    Post.delete()
+    
+    return HttpResponseRedirect(reverse('home'))
 def delete_user(request,user_id):
     user = custom_user.objects.get(pk=user_id)
+    Post = post.objects.filter(user_id=user)
+    Post.delete()
     logout(request)
     user.delete()
     return render(request , 'home.html',{'auth':False , 'delete_alert':True})

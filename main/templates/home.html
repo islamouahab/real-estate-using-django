@@ -81,6 +81,19 @@
         <div class="card-footer">
         <span class="text-title">{{post.price}} DA</span>
         <a href="{% url 'show post' post.id%}"><button class="view-item">view</button></a>
+        {% if request.user == post.user_id %}
+        <div class="dropdown">
+        <button class="menu" data-bs-toggle="dropdown">
+          <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+          <path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128ZM128,72a12,12,0,1,0-12-12A12,12,0,0,0,128,72Zm0,112a12,12,0,1,0,12,12A12,12,0,0,0,128,184Z"></path></svg>
+        </button>
+         <ul class="dropdown-menu dropdown-menu-dark">
+          <li><a class="dropdown-item" href="{% url 'update post' post.id %}">Modify</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'delete post' post.id %}" style="color: red;">Delete</a></li>
+         </ul>
+        </div>
+        {%endif%}
       </div>
     </div>
     {%endfor%}

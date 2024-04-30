@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{% static 'css/home.css'%}">
 </head>
 <body>
+  <script src="{% static 'script/post.js' %}"></script>
     <div class="navbar">
         <a href="{% url 'home'%}"><img src="{% static 'public/external/brand.png' %}" style="margin-left: 1vw;"></a>
         <div class="action-bar">
@@ -101,7 +102,8 @@
                   <a href="{% url 'profile' post.user_id.id %}" target="_blank"><img style="display: block;border-radius: 50%;max-width: 3vw;" src="{% if post.user_id.profile_pic %}{%if post.user_id.profile_pic.url %}{{post.user_id.profile_pic.url}}{%else%}{% static 'public/external/no-user.png' %}{%endif%}{%endif%}" alt="{% static 'public/external/no-user.png' %}"></a>
                   <a href="{% url 'profile' post.user_id.id %}" target="_blank"><h3>{{post.user_id.username}}</h3></a>
                 </div>
-                <button class="phone_num">Show phone number</button>
+                <button class="phone_num" onclick="show_number('{{post.user_id.phone_num}}')">Show phone number</button>
+                <h4 id="phone_num_label"></h4>
             </div>
         </div>
     </div>

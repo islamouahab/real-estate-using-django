@@ -30,6 +30,8 @@
         {%csrf_token%}
     <div class="search">
       <input type="text" class="search__input" placeholder="Type your search" name="search">
+      <div class="search-tools">
+      <button type="button"><img src="{% static 'public/external/filter.png' %}"></button>
       <button class="search__button" type="submit">
           <svg class="search__icon" aria-hidden="true" viewBox="0 0 24 24">
               <g>
@@ -37,6 +39,7 @@
               </g>
           </svg>
       </button>
+    </div>
     </div>
       </form>
     <div class="account-container">
@@ -55,7 +58,7 @@
       <div class="dropdown">
         <button class="account" type ="button" data-bs-toggle="dropdown" aria-expanded="false"><img src={% if user.profile_pic %}{%if user.profile_pic.url %}{{user.profile_pic.url}}{%else%}{% static 'public/external/no-user.png' %}{%endif%}{%endif%} alt=""></button>
         <ul class="dropdown-menu dropdown-menu-dark">
-          <li><a class="dropdown-item" href="profile/{{user.id}}">Profile</a></li>
+          <li><a class="dropdown-item" href="{% url 'profile' user.id%}">Profile</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
         </ul>
@@ -81,15 +84,17 @@
         <div class="card-footer">
         <span class="text-title">{{post.price}} DA</span>
         <a href="{% url 'show post' post.id%}"><button class="view-item">view</button></a>
-        {% if request.user == post.user_id %}
+        {% if request.user == post.user_id or request.user.is_superuser %}
         <div class="dropdown">
         <button class="menu" data-bs-toggle="dropdown">
           <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
           <path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128ZM128,72a12,12,0,1,0-12-12A12,12,0,0,0,128,72Zm0,112a12,12,0,1,0,12,12A12,12,0,0,0,128,184Z"></path></svg>
         </button>
          <ul class="dropdown-menu dropdown-menu-dark">
-          <li><a class="dropdown-item" href="{% url 'update post' post.id %}">Modify</a></li>
+          {% if request.user == post.user_id %}
+          <li><a class="dropdown-item" href="{% url 'update post' post.id %}">Modify</a></li> 
           <li><hr class="dropdown-divider"></li>
+          {% endif %}
           <li><a class="dropdown-item" href="{% url 'delete post' post.id %}" style="color: red;">Delete</a></li>
          </ul>
         </div>

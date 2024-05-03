@@ -95,6 +95,8 @@
         <div class="post-des">
             <div class="title">
                 <p>{{post.title}}</p>
+                <p style="font-weight: 500;">Loacation : {{post.location}}</p>
+                <p style="font-weight: 500;">Space : {{post.space}}m</p>
                 <h5>{{post.price}} DA</h5>
             </div>
             <div class="user-info">
@@ -102,7 +104,11 @@
                   <a href="{% url 'profile' post.user_id.id %}" target="_blank"><img style="display: block;border-radius: 50%;max-width: 3vw;" src="{% if post.user_id.profile_pic %}{%if post.user_id.profile_pic.url %}{{post.user_id.profile_pic.url}}{%else%}{% static 'public/external/no-user.png' %}{%endif%}{%endif%}" alt="{% static 'public/external/no-user.png' %}"></a>
                   <a href="{% url 'profile' post.user_id.id %}" target="_blank"><h3>{{post.user_id.username}}</h3></a>
                 </div>
+                {%if request.user.is_authenticated %}
                 <button class="phone_num" onclick="show_number('{{post.user_id.phone_num}}')">Show phone number</button>
+                {% else %}
+                <button class="phone_num">Show phone number</button>
+                {%endif%}
                 <h4 id="phone_num_label"></h4>
             </div>
         </div>

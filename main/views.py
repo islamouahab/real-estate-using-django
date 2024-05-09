@@ -5,16 +5,19 @@ from django.shortcuts import render , redirect
 from django.contrib.auth import login , authenticate , logout 
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from .models import custom_user,post,media_files
+from algerography.models import Wilaya
 # Create your views here.
 def home(request):
    posts = post.objects.prefetch_related('media_files_set').all()
+   wilayas = Wilaya.objects.all()
    max_length = 120
    description  = [post.description[:max_length]+ '...' if len(post.description)>max_length else post.description for post in posts]
    if not request.user.is_authenticated:
-      return render(request , 'home.html',{'auth':False ,'delete_alert':False , 'posts':zip(posts,description)})
+      return render(request , 'home.html',{'auth':False ,'delete_alert':False ,'wilayas':wilayas, 'posts':zip(posts,description)})
    else:
-      return render(request , 'home.html',{'auth':True , 'posts':zip(posts,description)})
+      return render(request , 'home.html',{'auth':True ,'wilayas':wilayas, 'posts':zip(posts,description)})
 
 def login_view(request):
    if not request.user.is_authenticated:
@@ -80,7 +83,7 @@ def add_post(request):
     
 def show_post(request,post_id):
    Post = post.objects.prefetch_related('media_files_set').get(pk=post_id)
-   return render(request,'post.html',{'post':Post,'auth':request.user.is_authenticated})
+   return render(request,'post.html',{'post':Post,'auth':request.user.is_authenticated ,'wilayas':Wilaya.objects.all()})
 def update_post(request,post_id):
    Post = post.objects.prefetch_related('media_files_set').get(pk=post_id)
    if request.user == Post.user_id:
@@ -130,12 +133,38 @@ def update_profile(request , user_id):
       user.save()
       alert = True
       return HttpResponseRedirect(reverse('profile', args=(request.user.id,)))
+def safe_casting(value):
+  try:
+     return int(value)
+  except:
+    return None
 def search(request):
+   query = Q()
    search_key = request.POST['search']
-   Posts = post.objects.filter(title__icontains=search_key)
+   location = request.POST['location'] or None
+   min_price = safe_casting(request.POST['min_price'])
+   max_price = safe_casting(request.POST['max_price'])
+   min_space = safe_casting(request.POST['min_space']) 
+   max_space = safe_casting(request.POST['max_space'])
+   floor = safe_casting(request.POST['floor'])
+   if search_key is not None:
+      query &= Q(title__icontains=search_key)
+   if location is not None:
+      query &= Q(location__icontains=location)
+   if max_price is not None:
+      query &= Q(price__lt=max_price)
+   if min_price is not None:
+      query &= Q(price__gt=min_price) 
+   if max_space is not None:
+      query &= Q(space__lt=max_space) 
+   if min_space is not None:
+      query &= Q(space__gt=min_space) 
+   if floor is not None:
+      query &= Q(floor_num=floor)
+   Posts = post.objects.filter(query)
    max_length = 120
    description  = [post.description[:max_length]+ '...' if len(post.description)>max_length else post.description for post in Posts]
-   return render(request,'home.html',{'posts':zip(Posts,description)})
+   return render(request,'home.html',{'posts':zip(Posts,description) ,'auth':request.user.is_authenticated ,'wilayas':Wilaya.objects.all()})
 def logout_handle(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))

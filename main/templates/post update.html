@@ -34,6 +34,38 @@
         </button>
       </div>
       </div>
+      <div class="filter">
+        <h2>Filter your Result</h2>
+        <hr class="dropdown-divider">
+        <div class="wilaya_price">
+        <h6>wilaya</h6>
+        <select name="location" class="custom-select" aria-label="Default select example">
+          <option></option>
+        {% for wilaya in wilayas %}
+          <option value="{{wilaya.name}}">{{wilaya.name}}</option>
+        {%endfor%}
+        </select>
+        <div class="input-group mb-3 input">
+        <h6>Min_price</h6>
+        <input type="number" class="form-control username" name="min_price">
+        <h6>Max_price</h6>
+        <input type="number" class="form-control username" name="max_price">
+        </div>
+        <div class="input-group mb-3 input">
+          <h6>Min_space</h6>
+          <input type="number" class="form-control username" name="min_space">
+          <h6>Max_space</h6>
+          <input type="number" class="form-control username" name="max_space">
+          </div>
+          <div class="input-group mb-3 input">             
+            <h6>floor number</h6>
+            <input type="number" class="form-control username" name="floor">
+            </div>
+        <button class="apply" type="button">apply</button>
+        </div>
+
+
+  </div>
 
     <div class="account-container">
        <div class="">
